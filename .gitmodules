@@ -1,0 +1,3 @@
+[submodule "public/styles"]
+	path = public/styles
+	url = https://5b7537b313c81d30644863b2a84479904c59084e@github.com/finalsa/bulma-finalsa.git
