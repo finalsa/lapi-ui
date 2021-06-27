@@ -1,32 +1,33 @@
 import t from 'typy';
-
-function getItemData(item, col, index) {
-    if (col.cell) {
-        return (
-            <div onClick={(e) => e.stopPropagation()}>
-                {
-                    col.cell(item, index)
-                }
-            </div>
-        )
-    }
-    let result = t(item, col.selector).safeObject
-    if (!result) {
-        return (col.default) ? col.default : ''
-    }
-    return result
-}
-
 function TableData({
     col,
     data,
-    key = "",
     index = 1
 }) {
+    if (col.cell) {
+        return (
+            <td
+                key={`tb-data-${index}-${col.name}-`}
+                style={{ width: '1%', whiteSpace: "nowrap"}}
+                className={`${col.className} m-0 px-0`}
+            >
+                {
+                    col.cell(data, index)
+                }
+            </td>
+        )
+    }
+    let result = t(data, col.selector).safeObject
+    if (!result) {
+        result = (col.default) ? col.default : ''
+    }
     return (
         <>
-            <td key={`tb-data-${key}`} className={`${col.className}`}>
-                {getItemData(data, col, index)}
+            <td
+                key={`tb-data-${index}-${col.name}-`}
+                className={`${col.className} m-0`}
+            >
+                {result}
             </td>
         </>
     )

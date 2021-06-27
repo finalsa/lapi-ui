@@ -47,19 +47,19 @@ function UserList(props) {
     }
 
     const cols = [
+        
         {
-            name: "Borrar",
+            name: "",
+            id: "dasdas",
             cell: (row) => {
                 return (
-                    <div className="buttons">
-                        <button className="button is-small is-danger is-outlined"
-                            onClick={() => deleteAction(row)}>
-                            <span>Borrar</span>
-                            <span className="icon is-small">
-                                <i className="fas fa-times"></i>
-                            </span>
-                        </button>
-                    </div>
+                    <button className="button is-small is-danger is-ghost"
+                        onClick={() => deleteAction(row)}>
+                        <span className="icon is-small">
+                            <i className="fas fa-times"></i>
+                        </span>
+                    </button>
+
                 )
             }
         },
@@ -87,6 +87,7 @@ function UserList(props) {
             selector: 'user_type.name',
             name: "Rol"
         },
+       
     ]
 
 
@@ -97,7 +98,7 @@ function UserList(props) {
                     <div className="title ">
                         Usuarios
                     </div>
-                   
+
                 </div>
                 <div className="column is-full pl-0">
                     <Notification></Notification>

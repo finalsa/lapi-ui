@@ -20,7 +20,7 @@ function Navbar(props) {
 
     return (
         <>
-            <nav className="navbar">
+            <nav className="navbar is-fixed">
                 <div className="navbar-brand">
                     <button className={`navbar-burger ${(burger ? 'is-active' : '')}`} aria-label="menu"
                         aria-expanded="false" onClick={() => { setBurger(!burger) }}>
@@ -32,9 +32,11 @@ function Navbar(props) {
                 <div className={`navbar-menu ${(burger ? 'is-active' : '')}`}>
                     <div className="navbar-start">
                     </div>
+                    <hr className="navbar-divider"/>
                     <div className="navbar-end">
                         <UserProfile user={user} logout={logoutAction}></UserProfile>
-                        <div className="navbar-item has-divider pr-0" onClick={logoutAction}>
+                        <hr className="navbar-divider"/>
+                        <div className="navbar-item pr-0" onClick={logoutAction}>
                             <button className="button is-ghost is-link pr-2" type="button">
                                 <span className="icon">
                                     <i className="fas fa-sign-out-alt"></i>

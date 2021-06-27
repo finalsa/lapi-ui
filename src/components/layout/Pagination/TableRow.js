@@ -3,7 +3,6 @@ import TableData from "./TableData"
 function TableRow({
     className = "",
     isSelected = false,
-    key = "",
     index = 0,
     data = {},
     cols = [],
@@ -13,7 +12,7 @@ function TableRow({
     let dataMapper = (col, i) => {
         items.push(
             <TableData
-                key={`tb-row-${index}-${key}-${col}-${i}`}
+                key={`tb-row-${index}-col-${i} `}
                 col={col}
                 data={data}
                 index={index}
@@ -23,7 +22,7 @@ function TableRow({
     cols.map(dataMapper)
     return (
         <>
-            <tr key={`tb-row-${key}-${index}`} className={`${className} ${(isSelected) ? 'is-selected' : ''}`}
+            <tr key={`tb-row-${index}-${isSelected}`} className={`${className} ${(isSelected) ? 'is-selected' : ''}`}
                 onClick={() => handleSelectedRow(data, index)}>
                 {
                     items

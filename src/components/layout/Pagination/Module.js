@@ -139,7 +139,7 @@ class PaginationModule extends React.Component {
                 <TableHeader
                     col={col}
                     index={i}
-                    key={`${this.key}-${this.state.actualPage}`}
+                    key={`th-${i}-${this.key}-${this.state.actualPage}`}
                 ></TableHeader>
             )
         }
@@ -149,7 +149,7 @@ class PaginationModule extends React.Component {
             rows.push(
                 <TableRow
                     isSelected={this.isSelected(i, item)}
-                    key={`${this.key}-${this.state.actualPage}`}
+                    key={`${this.key}-tb-${i}-${this.state.actualPage}`}
                     index={i}
                     data={item}
                     cols={cols}
@@ -160,18 +160,18 @@ class PaginationModule extends React.Component {
         data.map(dataMapper)
 
         return (
-            <div className={`${this.className} pt-1 px-0`}>
-                <ModuleHeader
-                    title={this.props.title}
-                    onSearch={this.props.onSearch}
-                    onAdd={this.props.onAdd}
-                    onReload={this.props.onReload}
-                    options={this.props.options}
-                ></ModuleHeader>
-                <div className={` px-5 mx-0 table-container my-5 ${(false) ? " " : ''}`}>
-                    <table className="table is-fullwidth is-striped  is-hoverable   ">
-                        <thead>
-                            <tr>
+            <div className={`${this.className} pt-1 px-5`}>
+                <div className={`p-0 mx-0 my-0 mt-2 table-container ${(false) ? " " : ''}`}>
+                    <ModuleHeader
+                        title={this.props.title}
+                        onSearch={this.props.onSearch}
+                        onAdd={this.props.onAdd}
+                        onReload={this.props.onReload}
+                        options={this.props.options}
+                    ></ModuleHeader>
+                    <table className="table is-fullwidth  is-striped is-narrow  is-hoverable   ">
+                        <thead className="py-6 my-6">
+                            <tr >
                                 {
                                     headers
                                 }
@@ -184,7 +184,7 @@ class PaginationModule extends React.Component {
                         </tbody>
                     </table>
                 </div>
-                <div className={` px-5 mx-0 my-0`}>
+                <div className={`p-0 mx-0 my-0 mt-4`}>
                     <PaginationFooter
                         isHidden={this.withoutFooter}
                         count={totalPages}

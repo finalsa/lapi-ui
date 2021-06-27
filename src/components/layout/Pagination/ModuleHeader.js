@@ -11,9 +11,9 @@ function TableHeader(
 
     return (
         <>
-            <div className="level py-1 px-5 m-0  mb-3 table-header">
+            <div className="level py-0 px-1 m-0 table-header">
                 <div className="level-left">
-                    <div className="has-text-weight-bold is-size-6">
+                    <div className="has-text-weight-bold has-text-black is-size-6">
                         {
                             title
                         }

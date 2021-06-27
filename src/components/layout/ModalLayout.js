@@ -41,9 +41,9 @@ function ModalLayout({
                             </div>
                         </div>
                         <div className="card-header">
-                            <p className="card-header-title py-0">
+                            <div className="card-header-title py-0">
                                 <BackButton onReturn={onReturn}></BackButton>
-                            </p>
+                            </div>
                         </div>
                         <div className="card-content">
                             {
