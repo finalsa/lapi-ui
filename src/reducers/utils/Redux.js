@@ -3,15 +3,24 @@ import { withRouter } from "react-router-dom";
 
 
 import User from 'actions/User'
+
+import Entity from 'actions/Entity'
+
+
 import Defs from 'actions/helpers/Defs'
 
 const user = new User();
+const entity = new Entity();
 
 
 const actions = [
     {
         className: User,
         object: user
+    },
+    {
+        className: Entity,
+        object: entity
     },
     ...Defs
 ]
@@ -20,7 +29,7 @@ const actions = [
 const stateToProps = (state, props) => {
     return {
         users: state.users.dataset,
-
+        entities: state.entities.dataset,
     }
 }
 

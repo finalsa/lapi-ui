@@ -4,6 +4,8 @@ import { LoadingBar } from 'components/layout'
 import redux from 'reducers/utils/Redux'
 import NotFound from 'pages/404'
 import Users from 'pages/Users'
+import Entities from 'pages/Entities'
+
 import { Route, Switch } from 'react-router'
 
 function Home(props) {
@@ -51,13 +53,16 @@ function Home(props) {
         <>
             <HomeLayout path={selectedPath} user={user} logout={logout}>
                 <Switch>
-                    
                     <Route path={`${path}/users`}>
                         <Users
                             setActualPage={setSelectedPath}
                         ></Users>
                     </Route>
-                    
+                    <Route path={`${path}/entities`}>
+                        <Entities
+                            setActualPage={setSelectedPath}
+                        ></Entities>
+                    </Route>
                     <Route>
                         <NotFound
                             setActualPage={setSelectedPath}

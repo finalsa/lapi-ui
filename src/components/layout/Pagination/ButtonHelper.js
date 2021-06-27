@@ -14,13 +14,15 @@ function ButtonHelper(props) {
 
     if (options) {
         optionsHelper = []
-        options.map((item, i) => {
+        let mapper = (item, i) => {
             optionsHelper.push(
-                <a href="#" onClick={item.action} className="dropdown-item">
+                <a type="button"
+                    href="#foo" onClick={item.action} key={`dropdown-button-${i}`} className="dropdown-item">
                     {item.name}
                 </a>
             )
-        })
+        }
+        options.map(mapper)
     }
 
     if (onReload) {

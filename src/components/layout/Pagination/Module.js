@@ -8,7 +8,6 @@ class PaginationModule extends React.Component {
 
     constructor(props) {
         super(props)
-
         this.state = {
             data: props.data,
             actualPage: 1,
@@ -153,7 +152,7 @@ class PaginationModule extends React.Component {
                     </div>
                     <div className="hero-body">
                         <div className="columns">
-                            <div className="column is-full has-text-centered">
+                            <div className="column is-full">
                                 <div className="subtitle">
                                     {
                                         this.noContentMessage
@@ -169,11 +168,15 @@ class PaginationModule extends React.Component {
         let headersMapper = (item, i) => {
             if (item.abbr)
                 headers.push(
-                    <th key={`th-${this.state.actualPage}-h-${i}`} className=""><abbr title={item.name}>{item.abbr}</abbr></th>
+                    <th key={`th-${this.state.actualPage}-h-${i}`} className="has-text-left">
+                        <abbr title={item.name}>{item.abbr}</abbr>
+                    </th>
                 )
             else
                 headers.push(
-                    <th key={`th-${this.state.actualPage}-h-${i}`} className="">{item.name}</th>
+                    <th key={`th-${this.state.actualPage}-h-${i}`} className="has-text-left">
+                        {item.name}
+                    </th>
                 )
 
         }
@@ -188,7 +191,7 @@ class PaginationModule extends React.Component {
             }
             cols.map(colMapper)
             rows.push(
-                <tr key={`tr-${this.state.actualPage}-${i}`} className={`${(this.isSelected(i, item)) ? 'is-selected' : ''}`}
+                <tr key={`tr-${this.state.actualPage}-${i}`} className={` ${(this.isSelected(i, item)) ? 'is-selected' : ''}`}
                     onClick={() => this.handleSelectedRow(item, i)}>
                     {
                         items
@@ -227,8 +230,8 @@ class PaginationModule extends React.Component {
 
                 }
 
-                <div className={` px-0 mx-0 table-container my-0 ${(false) ? " " : ''}`}>
-                    <table className="table is-fullwidth has-text-centered is-striped is-narrow is-hoverable   ">
+                <div className={` px-5 mx-0 table-container my-5 ${(false) ? " " : ''}`}>
+                    <table className="table is-fullwidth is-striped  is-hoverable   ">
                         <thead>
                             <tr>
                                 {

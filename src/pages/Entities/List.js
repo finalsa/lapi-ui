@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useState } from "react"
 import { LoadingBar, Pagination, Notification } from 'components/layout'
 
 
-function UserList(props) {
+function EntityList(props) {
 
     const [data, setData] = useState(null)
-    const { getUserPagination, deleteUser, path } = props
+    const { getEntityPagination, deleteEntity, path } = props
 
     let loadData = useCallback((actualPage = 0) => {
         let callback = (res) => {
@@ -15,8 +15,8 @@ function UserList(props) {
 
             }
         }
-        getUserPagination({ page: actualPage }, true, callback)
-    }, [getUserPagination])
+        getEntityPagination({ page: actualPage }, true, callback)
+    }, [getEntityPagination])
 
     let reload = () => {
         setData(null)
@@ -43,7 +43,7 @@ function UserList(props) {
 
             }
         }
-        deleteUser(row.id, callback)
+        deleteEntity(row.id, callback)
     }
 
     const cols = [
@@ -64,29 +64,10 @@ function UserList(props) {
             }
         },
         {
-            selector: 'user_name',
-            name: "Usuario"
-        },
-        {
-            selector: 'person.name',
+            selector: 'name',
             name: "Nombre"
         },
-        {
-            selector: 'person.phone',
-            name: "Teléfono"
-        },
-        {
-            selector: 'person.email',
-            name: "Correo"
-        },
-        {
-            selector: 'entity.name',
-            name: "Entidad"
-        },
-        {
-            selector: 'user_type.name',
-            name: "Rol"
-        },
+        
     ]
 
 
@@ -95,9 +76,8 @@ function UserList(props) {
             <div className="columns ml-0 pl-0 pt-0 mt-0 is-multiline ">
                 <div className="column  ml-0 pl-0 pt-0 mt-0 is-full">
                     <div className="title ">
-                        Usuarios
+                        Entidades
                     </div>
-                   
                 </div>
                 <div className="column is-full pl-0">
                     <Notification></Notification>
@@ -108,7 +88,7 @@ function UserList(props) {
                         onSelectedRow={(row) => {
                             props.history.replace(`${path}/details/${row.id}`);
                         }}
-                        title="Usuarios"
+                        title="Entidades"
                         data={data.data}
                         onAdd={() => {
                             props.history.replace(`${path}/form`);
@@ -125,4 +105,4 @@ function UserList(props) {
     )
 }
 
-export default (UserList)
+export default (EntityList)
