@@ -1,8 +1,9 @@
-import { useForm } from 'react-hook-form';
+import { SelectLayout } from 'components/layout';
+import { useForm, Controller } from 'react-hook-form';
 
 function ProductForm(props) {
 
-    const { handleSubmit, register, errors } = useForm();
+    const { handleSubmit, register, errors, control } = useForm();
     let onSubmit = (event) => {
         console.log(event)
         let callback = (res) => {
@@ -26,6 +27,9 @@ function ProductForm(props) {
         <>
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
                 <div className="columns is-multiline">
+                    <div className="column is-half">
+                       <SelectLayout></SelectLayout>
+                    </div>
                     <div className="column is-half">
                         <div className="field">
                             <label className="label">Nombre</label>

@@ -32,8 +32,8 @@ function Navbar(props) {
                 <div className={`navbar-menu ${(burger ? 'is-active' : '')}`}>
                     <div className="navbar-start">
                     </div>
-                    <hr className="navbar-divider"/>
                     <div className="navbar-end">
+                    <hr className="navbar-divider"/>
                         <UserProfile user={user} logout={logoutAction}></UserProfile>
                         <hr className="navbar-divider"/>
                         <div className="navbar-item pr-0" onClick={logoutAction}>

@@ -37,7 +37,7 @@ function ProductForm(props) {
         <>
 
             <ModalLayout
-                title="Nuevo Usuario"
+                title="Nuevo Producto"
                 onReturn={props.onReturn}
                 onReload={reload}
             >

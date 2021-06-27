@@ -37,7 +37,7 @@ function DocumentForm(props) {
         <>
 
             <ModalLayout
-                title="Nuevo Usuario"
+                title="Nuevo documento"
                 onReturn={props.onReturn}
                 onReload={reload}
             >
