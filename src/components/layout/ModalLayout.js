@@ -2,7 +2,7 @@ import { BackButton } from 'components/layout'
 
 function ModalLayout({
     children,
-    className = "is-half",
+    className = "is-full",
     title = "",
     onReturn = () => { },
     onReload = null,
@@ -12,8 +12,8 @@ function ModalLayout({
         <>
             <div className="columns">
                 <div className={`column ${className}`}>
-                    <div className="card">
-                        <div className="level  card-header-title py-1 pl-5 pr-4 m-0  mb-0 table-header">
+                    <div className="card px-5">
+                        <div className="level  card-header-title py-1 pl-0 pr-0 m-0  mb-0 table-header">
                             <div className="level-left">
                                 <div className="has-text-weight-bold is-size-6">
                                     {
@@ -40,12 +40,12 @@ function ModalLayout({
 
                             </div>
                         </div>
-                        <div className="card-header">
-                            <div className="card-header-title py-0">
+                        <div className="card-header px-0">
+                            <div className="card-header-title px-0 py-0">
                                 <BackButton onReturn={onReturn}></BackButton>
                             </div>
                         </div>
-                        <div className="card-content">
+                        <div className="card-content px-0">
                             {
                                 children
                             }

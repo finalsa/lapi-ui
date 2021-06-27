@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useState } from "react"
 import { LoadingBar, Pagination, Notification } from 'components/layout'
 
 
-function UserList(props) {
+function DocumentList(props) {
 
     const [data, setData] = useState(null)
-    const { getUserPagination, deleteUser, path } = props
+    const { getDocumentPagination, deleteDocument, path } = props
 
     let loadData = useCallback((actualPage = 0) => {
         let callback = (res) => {
@@ -15,8 +15,8 @@ function UserList(props) {
 
             }
         }
-        getUserPagination({ page: actualPage }, true, callback)
-    }, [getUserPagination])
+        getDocumentPagination({ page: actualPage }, true, callback)
+    }, [getDocumentPagination])
 
     let reload = () => {
         setData(null)
@@ -43,7 +43,7 @@ function UserList(props) {
 
             }
         }
-        deleteUser(row.id, callback)
+        deleteDocument(row.id, callback)
     }
 
     const cols = [
@@ -68,7 +68,7 @@ function UserList(props) {
             name: "Nombre"
         },
         {
-            selector: 'user_name',
+            selector: 'document_name',
             name: "Usuario"
         },
        
@@ -86,7 +86,7 @@ function UserList(props) {
             name: "Entidad"
         },
         {
-            selector: 'user_type.description',
+            selector: 'document_type.description',
             name: "Rol"
         },
        
@@ -98,7 +98,7 @@ function UserList(props) {
             <div className="columns ml-0 pl-0 pt-0 mt-0 is-multiline ">
                 <div className="column  ml-0 pl-0 pt-0 mt-0 is-full">
                     <div className="title ">
-                        Usuarios
+                        Documentos
                     </div>
 
                 </div>
@@ -111,7 +111,7 @@ function UserList(props) {
                         onSelectedRow={(row) => {
                             props.history.replace(`${path}/details/${row.id}`);
                         }}
-                        title="Usuarios"
+                        title="Documentos"
                         data={data.data}
                         onAdd={() => {
                             props.history.replace(`${path}/form`);
@@ -128,4 +128,4 @@ function UserList(props) {
     )
 }
 
-export default (UserList)
+export default (DocumentList)

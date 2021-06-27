@@ -1,14 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { LoadingBar, ModalLayout } from 'components/layout'
 import { reduxProperties } from 'reducers/utils/Redux'
-import Form from 'components/Entities/Form'
+import Details from 'components/Products/Details'
 
-function EntityForm(props) {
+function ProductDetails(props) {
 
     const [data, setData] = useState(null)
-    const [formData, setFormData] = useState(null)
     const { id } = props.match.params
-    const { getEntityDetails } = props
+    const { getProductDetails } = props
 
     let loadData = useCallback(() => {
         let callback = (res) => {
@@ -18,11 +17,8 @@ function EntityForm(props) {
 
             }
         }
-        if (id) {
-            getEntityDetails(id, {}, callback)
-        }
-        setFormData({})
-    }, [getEntityDetails, id])
+        getProductDetails(id, {}, callback)
+    }, [getProductDetails, id])
 
     let reload = () => {
         setData(null)
@@ -33,27 +29,26 @@ function EntityForm(props) {
         loadData()
     }, [loadData])
 
+
     return (
         <>
 
             <ModalLayout
-                title="Nueva Entidad"
+                title="Usuario"
                 onReturn={props.onReturn}
                 onReload={reload}
             >
                 {
-                    (!formData) ?
+                    (!data) ?
                         (
                             <LoadingBar
                                 isSmall={true}
                                 reload={reload}
                             ></LoadingBar>
                         ) : (
-                            <Form
+                            <Details
                                 data={data}
-                                onReturn={props.onReturn}
-                                saveEntity={props.saveEntity}
-                            ></Form>
+                            ></Details>
                         )
                 }
             </ModalLayout>
@@ -62,4 +57,4 @@ function EntityForm(props) {
     )
 }
 
-export default reduxProperties(EntityForm)
+export default reduxProperties(ProductDetails)

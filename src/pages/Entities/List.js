@@ -23,6 +23,10 @@ function EntityList(props) {
         loadData()
     }
 
+    let onSearch = (text) => {
+        console.log(text)
+    }
+
     useEffect(() => {
         loadData()
     }, [loadData])
@@ -64,7 +68,6 @@ function EntityList(props) {
             selector: 'name',
             name: "Nombre"
         },
-
     ]
 
 
@@ -90,6 +93,7 @@ function EntityList(props) {
                         onAdd={() => {
                             props.history.replace(`${path}/form`);
                         }}
+                        onSearch={onSearch}
                         onReload={reload}
                         totalPages={data.total_pages}
                         automatic={false}

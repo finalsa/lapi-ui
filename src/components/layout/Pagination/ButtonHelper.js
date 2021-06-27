@@ -1,9 +1,9 @@
+
 function ButtonHelper(props) {
     const { onAdd, onSearch, onReload, options } = props
-
+    
     let buttons = []
     let optionsHelper = null
-
     if (onSearch) {
         buttons.push(
             <button className="button is-ghost px-1 has-text-success" key="table-button-search-action" type="button" onClick={onSearch}>

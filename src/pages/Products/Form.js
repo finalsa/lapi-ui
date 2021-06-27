@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { LoadingBar, ModalLayout } from 'components/layout'
 import { reduxProperties } from 'reducers/utils/Redux'
-import Form from 'components/Entities/Form'
+import Form from 'components/Products/Form'
 
-function EntityForm(props) {
+function ProductForm(props) {
 
     const [data, setData] = useState(null)
     const [formData, setFormData] = useState(null)
     const { id } = props.match.params
-    const { getEntityDetails } = props
+    const { getProductDetails } = props
 
     let loadData = useCallback(() => {
         let callback = (res) => {
@@ -19,10 +19,10 @@ function EntityForm(props) {
             }
         }
         if (id) {
-            getEntityDetails(id, {}, callback)
+            getProductDetails(id, {}, callback)
         }
         setFormData({})
-    }, [getEntityDetails, id])
+    }, [getProductDetails, id])
 
     let reload = () => {
         setData(null)
@@ -37,7 +37,7 @@ function EntityForm(props) {
         <>
 
             <ModalLayout
-                title="Nueva Entidad"
+                title="Nuevo Usuario"
                 onReturn={props.onReturn}
                 onReload={reload}
             >
@@ -52,7 +52,7 @@ function EntityForm(props) {
                             <Form
                                 data={data}
                                 onReturn={props.onReturn}
-                                saveEntity={props.saveEntity}
+                                saveProduct={props.saveProduct}
                             ></Form>
                         )
                 }
@@ -62,4 +62,4 @@ function EntityForm(props) {
     )
 }
 
-export default reduxProperties(EntityForm)
+export default reduxProperties(ProductForm)

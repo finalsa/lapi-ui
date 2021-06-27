@@ -1,4 +1,4 @@
-function UserDetails(props) {
+function DocumentDetails(props) {
     const { data } = props
     return (
         <>
@@ -63,4 +63,4 @@ function UserDetails(props) {
         </>
     )
 }
-export default UserDetails
+export default DocumentDetails

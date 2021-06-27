@@ -7,6 +7,8 @@ import Users from 'pages/Users'
 import Entities from 'pages/Entities'
 
 import { Route, Switch } from 'react-router'
+import Documents from 'pages/Documents'
+import Products from 'pages/Products'
 
 function Home(props) {
     console.log(props)
@@ -57,6 +59,16 @@ function Home(props) {
                         <Users
                             setActualPage={setSelectedPath}
                         ></Users>
+                    </Route>
+                    <Route path={`${path}/products`}>
+                        <Products
+                            setActualPage={setSelectedPath}
+                        ></Products>
+                    </Route>
+                    <Route path={`${path}/documents`}>
+                        <Documents
+                            setActualPage={setSelectedPath}
+                        ></Documents>
                     </Route>
                     <Route path={`${path}/entities`}>
                         <Entities

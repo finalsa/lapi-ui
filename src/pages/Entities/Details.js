@@ -34,7 +34,7 @@ function EntityDetails(props) {
         <>
 
             <ModalLayout
-                title="Usuario"
+                title="Entidad"
                 onReturn={props.onReturn}
                 onReload={reload}
             >

@@ -5,15 +5,26 @@ import { withRouter } from "react-router-dom";
 import User from 'actions/User'
 
 import Entity from 'actions/Entity'
+import Document from 'actions/Document'
+import Product from 'actions/Product'
 
 
 import Defs from 'actions/helpers/Defs'
 
 const user = new User();
 const entity = new Entity();
-
+const document = new Document();
+const product = new Product();
 
 const actions = [
+    {
+        className: Product,
+        object: product
+    },
+    {
+        className: Document,
+        object: document
+    },
     {
         className: User,
         object: user
