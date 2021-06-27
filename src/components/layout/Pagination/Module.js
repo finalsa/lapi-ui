@@ -1,8 +1,10 @@
 import React from 'react'
 import PaginationFooter from './Footer'
-import t from 'typy';
 import { LoadingBar } from '..';
-import ButtonHelper from './ButtonHelper';
+import NoContent from './NoContent';
+import ModuleHeader from './ModuleHeader';
+import TableRow from './TableRow';
+import TableHeader from './TableHeader';
 
 class PaginationModule extends React.Component {
 
@@ -19,6 +21,7 @@ class PaginationModule extends React.Component {
         this.setDefaultProperties = this.setDefaultProperties.bind(this)
         this.handleChangePage = this.handleChangePage.bind(this)
         this.isSelected = this.isSelected.bind(this)
+        this.handleSelectedRow = this.handleSelectedRow.bind(this)
         this.setDefaultProperties(props)
     }
 
@@ -34,6 +37,8 @@ class PaginationModule extends React.Component {
         multipleSelection = false,
         noContentMessage = ":( No hay datos suficientes para mostrar.",
         isSelectable = true,
+        hasHeader = true,
+        key = "",
     }) {
         this.horizontal = horizontal
         this.automatic = automatic
@@ -46,6 +51,8 @@ class PaginationModule extends React.Component {
         this.noContentMessage = noContentMessage
         this.multipleSelection = multipleSelection
         this.isSelectable = isSelectable
+        this.hasHeader = hasHeader
+        this.key = key
     }
 
     handleSelectedRow(row, index) {
@@ -82,23 +89,6 @@ class PaginationModule extends React.Component {
         this.setState({ actualPage: pageNumber, selected: null, rowSelected: -1 },)
     }
 
-    getItemData(item, col, index) {
-        if (col.cell) {
-
-            return (
-                <div onClick={(e) => e.stopPropagation()}>
-                    {
-                        col.cell(item, index)
-                    }
-                </div>
-            )
-        }
-        let result = t(item, col.selector).safeObject
-        if (!result) {
-            return (col.default) ? col.default : ''
-        }
-        return result
-    }
 
     isSelected(index, item) {
         if (!this.multipleSelection) {
@@ -131,105 +121,53 @@ class PaginationModule extends React.Component {
 
         if (!data || data.length === 0) {
             return (
-                <section className={`${this.className} hero`}>
-                    <div className="hero-header">
-                        <div className="level py-1 px-5 m-0  mb-3 table-header">
-                            <div className="level-left">
-                                <div className="has-text-weight-bold is-size-6">
-                                    {
-                                        this.title
-                                    }
-                                </div>
-                            </div>
-                            <div className="level-right">
-                                <ButtonHelper
-                                    onSearch={this.props.onSearch}
-                                    onAdd={this.props.onAdd}
-                                    onReload={this.props.onReload}
-                                ></ButtonHelper>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="hero-body">
-                        <div className="columns">
-                            <div className="column is-full">
-                                <div className="subtitle">
-                                    {
-                                        this.noContentMessage
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <NoContent
+                    title={this.title}
+                    className={this.className}
+                    message={this.noContentMessage}
+                    onSearch={this.noContentMessage}
+                    onAdd={this.props.onAdd}
+                    onReload={this.props.onReload}
+                    options={this.props.options}
+                >
+                </NoContent>
             )
         }
         let headers = []
-        let headersMapper = (item, i) => {
-            if (item.abbr)
-                headers.push(
-                    <th key={`th-${this.state.actualPage}-h-${i}`} className="has-text-left">
-                        <abbr title={item.name}>{item.abbr}</abbr>
-                    </th>
-                )
-            else
-                headers.push(
-                    <th key={`th-${this.state.actualPage}-h-${i}`} className="has-text-left">
-                        {item.name}
-                    </th>
-                )
-
+        let headersMapper = (col, i) => {
+            headers.push(
+                <TableHeader
+                    col={col}
+                    index={i}
+                    key={`${this.key}-${this.state.actualPage}`}
+                ></TableHeader>
+            )
         }
         cols.map(headersMapper)
         let rows = []
         let dataMapper = (item, i) => {
-            let items = []
-            let colMapper = (col, j) => {
-                items.push(
-                    <td key={`td-${this.state.actualPage}-${j}-${i}`}>{this.getItemData(item, col, i)}</td>
-                )
-            }
-            cols.map(colMapper)
             rows.push(
-                <tr key={`tr-${this.state.actualPage}-${i}`} className={` ${(this.isSelected(i, item)) ? 'is-selected' : ''}`}
-                    onClick={() => this.handleSelectedRow(item, i)}>
-                    {
-                        items
-                    }
-                </tr>
+                <TableRow
+                    isSelected={this.isSelected(i, item)}
+                    key={`${this.key}-${this.state.actualPage}`}
+                    index={i}
+                    data={item}
+                    cols={cols}
+                    handleSelectedRow={this.handleSelectedRow}
+                ></TableRow>
             )
         }
         data.map(dataMapper)
 
         return (
             <div className={`${this.className} pt-1 px-0`}>
-                {
-                    (this.title) ? (
-                        <div className="level py-1 px-5 m-0  mb-3 table-header">
-                            <div className="level-left">
-                                <div className="has-text-weight-bold is-size-6">
-                                    {
-                                        this.title
-                                    }
-                                </div>
-                            </div>
-                            <div className="level-right">
-                                <ButtonHelper
-                                    onSearch={this.props.onSearch}
-                                    onAdd={this.props.onAdd}
-                                    onReload={this.props.onReload}
-                                    options={this.props.options}
-                                ></ButtonHelper>
-                            </div>
-                        </div>
-                    )
-                        :
-                        (
-                            null
-                        )
-
-                }
-
+                <ModuleHeader
+                    title={this.props.title}
+                    onSearch={this.props.onSearch}
+                    onAdd={this.props.onAdd}
+                    onReload={this.props.onReload}
+                    options={this.props.options}
+                ></ModuleHeader>
                 <div className={` px-5 mx-0 table-container my-5 ${(false) ? " " : ''}`}>
                     <table className="table is-fullwidth is-striped  is-hoverable   ">
                         <thead>
@@ -247,20 +185,12 @@ class PaginationModule extends React.Component {
                     </table>
                 </div>
                 <div className={` px-5 mx-0 my-0`}>
-                    {
-                        (this.withoutFooter) ?
-                            (
-                                null
-                            )
-                            :
-                            (
-                                <PaginationFooter
-                                    count={totalPages}
-                                    actualPage={this.state.actualPage}
-                                    onPageChange={this.handleChangePage}
-                                ></PaginationFooter>
-                            )
-                    }
+                    <PaginationFooter
+                        isHidden={this.withoutFooter}
+                        count={totalPages}
+                        actualPage={this.state.actualPage}
+                        onPageChange={this.handleChangePage}
+                    ></PaginationFooter>
                 </div>
             </div>
         )

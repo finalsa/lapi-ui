@@ -37,6 +37,12 @@ class Pagination extends React.Component {
 
 
     render() {
+        if (this.props.isHidden) {
+            return (
+                <>
+                </>
+            )
+        }
         let number = this.props.count
         if (!number)
             return (null)

@@ -28,11 +28,11 @@ function Login({ history, login }) {
         }
         let errorCallback = (res) => {
             console.log(res)
-            setErrorMessage(res.status)
+            setErrorMessage(res.text.status)
         }
         login(email, password, callback, errorCallback)
     }
-
+    console.log(errorMessage)
     return (
         <>
             <section className="hero is-fullheight is-light">

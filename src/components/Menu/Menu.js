@@ -9,12 +9,12 @@ function Menu(props) {
 
                     <aside className="menu ml-2">
                         <ul className="menu-list">
-                                <img
-                                    src={`https://pruebas-finalsa.s3.amazonaws.com/kasaluna/logo-white-chico.png`}
-                                    width="200"
-                                    height="80"
-                                    alt='logo'
-                                />
+                            <img
+                                src={`https://pruebas-finalsa.s3.amazonaws.com/kasaluna/logo-white-chico.png`}
+                                width="200"
+                                height="80"
+                                alt='logo'
+                            />
                         </ul>
                         <p className="menu-label">
                             General

@@ -25,7 +25,7 @@ class UserProfile extends React.Component {
                     href="#foo"
                 >
                    
-                   {user.name}
+                   {user.person.name}
                 </a>
                 <div className="navbar-dropdown is-right is-boxed has-text-centered ">
                     
@@ -34,7 +34,7 @@ class UserProfile extends React.Component {
                             <i className="fas fa-address-card"></i>
                         </span>
                         <span>
-                            Nombre: {user.name}
+                            Nombre: {user.person.name}
                         </span>
                     </div>
                     <div  className="navbar-item">

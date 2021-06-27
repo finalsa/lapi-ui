@@ -104,7 +104,7 @@ class Action {
             }
             else if (method !== "GET" && body) {
                 args['data'] = body
-                args.headers["Content-Type"]  = "application/json"
+                args.headers["Content-Type"] = "application/json"
             }
 
             return axios.request(
@@ -126,15 +126,17 @@ class Action {
                     if (error.response) {
                         console.log(error.response.data);
                         console.log(error.response.status);
+                        if (callback) {
+                            callback({
+                                body: {
+                                    status: error.response.status,
+                                    text: error.response.data
+                                },
+                                ok: false
+                            });
+                        }
                     }
-                    if (callback)
-                        callback({
-                            body: {
-                                status: error.status,
-                                text: error.statusText
-                            },
-                            ok: false
-                        });
+
                 });
         };
     }

@@ -15,7 +15,7 @@ class Auth extends Action {
         let onLogin = (res) => {
             if (res.ok) {
                 if (res.body.status) {
-                    errorCallback(res.body)
+                    errorCallback(res)
                 } else {
                     writeToStorage("token", res.body.token);
                     writeToStorage("id", res.body.user.id);
