@@ -12,7 +12,7 @@ function Menu(props) {
                         <ul className="menu-list">
                             <img
                                 src={LOGO}
-                                width="200"
+                                width="100"
                                 height="80"
                                 alt='logo'
                             />

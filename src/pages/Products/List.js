@@ -77,7 +77,7 @@ function ProductList(props) {
             name: "Tamaño"
         },
         {
-            selector: 'product_type.name',
+            selector: 'product_type.description',
             name: "Tipo",
             default :"Sin correo"
         },

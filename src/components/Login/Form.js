@@ -44,8 +44,8 @@ function Login({ history, login }) {
                                 <form onSubmit={handleSubmit(onLogin)} className="px-4">
                                     <div className="field">
                                         <div className="columns is-justify-content-center">
-                                            <div className="column is-full">
-                                                <figure className="image ">
+                                            <div className="column is-6">
+                                                <figure className="image">
                                                     <img
                                                         src={LOGO}
                                                         alt='logo' />

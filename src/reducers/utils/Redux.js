@@ -8,6 +8,11 @@ import Entity from 'actions/Entity'
 import Document from 'actions/Document'
 import Product from 'actions/Product'
 import ProductType from 'actions/ProductType'
+import DocumentType from 'actions/DocumentType'
+import Item from 'actions/Item'
+import Template from 'actions/Template'
+import TemplateType from 'actions/TemplateType'
+
 
 
 import Defs from 'actions/helpers/Defs'
@@ -17,8 +22,28 @@ const entity = new Entity();
 const document = new Document();
 const product = new Product();
 const productType = new ProductType();
+const documentType = new DocumentType();
+const item = new Item();
+const template = new Template();
+const templateType = new TemplateType();
 
 const actions = [
+    {
+        className: DocumentType,
+        object: documentType
+    },
+    {
+        className: Item,
+        object: item
+    },
+    {
+        className: Template,
+        object: template
+    },
+    {
+        className: TemplateType,
+        object: templateType
+    },
     {
         className: ProductType,
         object: productType

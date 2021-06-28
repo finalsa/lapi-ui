@@ -68,6 +68,11 @@ function EntityList(props) {
             selector: 'name',
             name: "Nombre"
         },
+        {
+            selector: 'lab_chief.name',
+            name: "Jefe de Labotorio",
+            default : "-"
+        },
     ]
 
 
