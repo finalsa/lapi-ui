@@ -32,7 +32,7 @@ function PrintableDetailsEntitty(props) {
     }
     return (
         <>
-            <div className="column is-full is-size-7">
+            <div className="column is-full is-size-7 py-0">
                 EN EL {entity.state} EL DÍA {new Date(data.delivery_date).toLocaleDateString('es-MX', options).toUpperCase()}, REUNIDOS EN LAS  INSTALACIONES QUE OCUPA EL {
                     entity.name
                 }, {entity.direction}; DIRECTOR , {entity.director?.name},  ADMINISTRADOR , {entity.admin?.name} , JEFE DE LABORATORIO {entity.lab_chief?.name} ;
@@ -47,18 +47,18 @@ function PrintableDetailsEntitty(props) {
                         SERVICIOS DE SALUD DE VERACRUZ<br />
                         {entity.name}
                     </div>
-                    <div className="column is-full">
+                    <div className="column is-full py-1">
                         {entity.lab_chief?.name}<br />
                         JEFE DE LABORATORIO
                     </div>
                     <div className="column is-full">
                         AFYA MEDIK, S. A. DE C. V.
                     </div>
-                    <div className="column is-full">
+                    <div className="column is-full  py-1">
                         ING. ALEXIS CORTES BENITEZ<br />
                         PRESENTE
                     </div>
-                    <div className="column is-full">
+                    <div className="column is-full  py-1">
                         ING. ALEXIS CORTES BENITEZ<br />
                         LOGISTICA
                     </div>
@@ -102,7 +102,7 @@ function PrintableDetails(props) {
                     data={data}
                     getEntityDetails={props.getEntityDetails}
                 >
-                    <div className="column is-full is-size-7">
+                    <div className="column is-full is-size-7 py-0 my-0">
                         <Pagination
                             title="Productos"
                             data={items}
@@ -153,16 +153,17 @@ function PrintableDetails(props) {
                             ]}
                         ></Pagination>
                     </div>
-                    <div className="column is-full is-size-7">
+                    <div className="column is-full is-size-7 py-0">
                         REALIZANDO LA REVISIÓN FÍSICA Y DOCUMENTAL CORRESPONDIENTE AL CONTRATO ANUAL 2021-2021 NÚMERO LPN-103T000000-007-2021, SUMINISTRO DE PRUEBAS CENTRO DE ALTA ESPECIALIDAD  DR. RAFAEL LUCIO  A SERVICIOS DE SALUD DE VERACRUZ , PARA LO CUAL SE LEVANTA LA PRESENTE ACTA.
                         LO ANTERIOR SE ASIENTA PARA DAR SEGUIMIENTO AL CUMPLIMIENTO DEL CONTRATO ANUAL EN MENCIÓN. NO HABIENDO OTRO ASUNTO QUE TRATAR, SE DA POR TERMINADA LA PRESENTE ACTA, FIRMANDO AL MARGEN Y AL CALCE LOS QUE EN ELLA INTERVIENEN, PARA DEBIDA CONSTANCIA, EL MISMO DÍA EN QUE SE ACTÚA.
                     </div>
                 </PrintableDetailsEntitty>
-                <div className="column is-full is-size-7">
+                <div className="column is-full is-size-7 py-0">
                     SE FORMALIZA LA ENTREGA CORRESPONDIENTE A LA ENTREGA DE INSUMOS Y REACTIVOS POR PARTE DE LA EMPRESA AFYA MEDIK, S. A. DE C. V. AL {data.entity.name} , EN EL SIGUIENTE LISTADO:
                 </div>
-                <div className="column is-full is-size-7 pb-5">
+                <div className="column is-full is-size-7 py-0">
                     Comentarios:
+                    <textarea className="textarea"></textarea>
                 </div>
             </PrintableLayout>
         </>

@@ -4,7 +4,7 @@ function PrintableLayout(
     {
         children,
         id = "printable",
-        height = '27.9cm',
+        height = '25cm',
         className = "box",
         title = "PROCEDIMIENTO ALMACÉN",
         subtitle = "ACUSE DE ENTREGA",
@@ -17,7 +17,7 @@ function PrintableLayout(
     }
 ) {
     return (
-        <div className={`container ${className} px-0 pt-0  `} id={id} style={{ width: '21.6cm', height: height, overflow: "hidden" }}>
+        <div className={`container ${className} px-0 pt-0  `} id={id} style={{ width: '19cm', height: height, overflow: "hidden" }}>
             <div className="columns is-multiline mx-0 pt-2 pt-0 ">
                 <div className="column is-full  mb-0 px-0 pb-0 mx-0 ">
                     <div className="level">
