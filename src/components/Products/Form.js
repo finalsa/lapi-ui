@@ -13,11 +13,9 @@ function ProductForm(props) {
         }
         let data = {
             name: event.name,
-            user_name: event.userName,
-            phone: event.phone,
-            email: event.email,
-            user_type: 1,
-            password: event.password,
+            product_type : event.product_type,
+            reference : event.reference,
+            size : event.size,
         }
         console.log(data)
         props.saveProduct(data, callback)
@@ -28,7 +26,27 @@ function ProductForm(props) {
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
                 <div className="columns is-multiline">
                     <div className="column is-half">
-                       <SelectLayout></SelectLayout>
+                    <div className="field">
+                            <label className="label">Tipo</label>
+                            <div className="control">
+                                <Controller
+                                    control={control}
+                                    name="product_type"
+                                    render={({ field: { onChange, onBlur, ref } }) => (
+                                        <SelectLayout
+                                            onSelect={(val) => onChange(val)}
+                                            ref={ref}
+                                            onBlur={onBlur}
+                                            placeholder="Selecciona el tipo de producto"
+                                            options={props.productTypes}
+                                            value="id"
+                                            label="name"
+                                        ></SelectLayout>
+                                    )}
+                                />
+
+                            </div>
+                        </div>
                     </div>
                     <div className="column is-half">
                         <div className="field">
@@ -44,10 +62,10 @@ function ProductForm(props) {
                     </div>
                     <div className="column is-half">
                         <div className="field">
-                            <label className="label">Nombre de Usuario</label>
+                            <label className="label">Referencia</label>
                             <div className="control">
                                 <input
-                                    {...register("userName", { required: true })}
+                                    {...register("reference", { required: true })}
                                     type="text"
                                     className="input"
                                 ></input>
@@ -57,51 +75,12 @@ function ProductForm(props) {
                     <div className="column is-half">
                         <div className="field">
                             <label className="label">
-                                Teléfono
+                                Tamaño
                             </label>
                             <div className="control">
                                 <input
-                                    {...register("phone", { required: true })}
+                                    {...register("size", { required: true })}
                                     type="text"
-                                    className="input"
-                                ></input>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="column is-half">
-                        <div className="field">
-                            <label className="label">
-                                Correo Electrónico
-                            </label>
-                            <div className="control">
-                                <input
-                                    {...register("email", { required: true })}
-                                    type="text"
-                                    className="input"
-                                ></input>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="column is-half">
-                        <div className="field">
-                            <label className="label">Contraseña</label>
-                            <div className="control">
-                                <input
-                                    {...register("password", { required: true })}
-                                    type="password"
-                                    className="input"
-                                ></input>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="column is-half">
-                        <div className="field">
-                            <label className="label">Confirma Contraseña</label>
-                            <div className="control">
-                                <input
-                                    {...register("conpassword", { required: true })}
-                                    type="password"
                                     className="input"
                                 ></input>
                             </div>

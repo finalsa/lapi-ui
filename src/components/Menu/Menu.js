@@ -1,3 +1,4 @@
+import { LOGO } from 'configuration/manager'
 import { Link } from 'react-router-dom'
 
 function Menu(props) {
@@ -10,7 +11,7 @@ function Menu(props) {
                     <aside className="menu ml-2">
                         <ul className="menu-list">
                             <img
-                                src={`https://pruebas-finalsa.s3.amazonaws.com/kasaluna/logo-white-chico.png`}
+                                src={LOGO}
                                 width="200"
                                 height="80"
                                 alt='logo'

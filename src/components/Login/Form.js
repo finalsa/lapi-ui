@@ -1,3 +1,4 @@
+import { LOGO } from 'configuration/manager';
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -46,7 +47,7 @@ function Login({ history, login }) {
                                             <div className="column is-full">
                                                 <figure className="image ">
                                                     <img
-                                                        src={"https://pruebas-finalsa.s3.amazonaws.com/kasaluna/logo-white.png"}
+                                                        src={LOGO}
                                                         alt='logo' />
                                                 </figure>
                                             </div>

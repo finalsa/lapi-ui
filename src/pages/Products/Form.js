@@ -8,7 +8,7 @@ function ProductForm(props) {
     const [data, setData] = useState(null)
     const [formData, setFormData] = useState(null)
     const { id } = props.match.params
-    const { getProductDetails } = props
+    const { getProductDetails,  getProductTypeList} = props
 
     let loadData = useCallback(() => {
         let callback = (res) => {
@@ -21,8 +21,18 @@ function ProductForm(props) {
         if (id) {
             getProductDetails(id, {}, callback)
         }
-        setFormData({})
-    }, [getProductDetails, id])
+        let dataCallback = (res) => {
+            if (res.ok) {
+                let list = res.body
+                setFormData(
+                    {
+                        types : list
+                    }
+                )
+            }
+        }
+        getProductTypeList({ limit: 100 }, dataCallback)
+    }, [getProductTypeList, getProductDetails, id])
 
     let reload = () => {
         setData(null)
@@ -52,6 +62,7 @@ function ProductForm(props) {
                             <Form
                                 data={data}
                                 onReturn={props.onReturn}
+                                productTypes={formData.types}
                                 saveProduct={props.saveProduct}
                             ></Form>
                         )

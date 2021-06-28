@@ -6,10 +6,10 @@ import Form from './Form'
 import List from './List'
 
 function ProductsPage(props) {
-    const { setActualPage, getProductPagination, getProductDetails, getProductList, saveProduct, deleteProduct, setProduct, } = props
+    const { setActualPage, getProductPagination, getProductDetails, getProductList, saveProduct, deleteProduct, setProduct, getProductTypeList } = props
     const { path } = props.match
 
-    const products = { getProductPagination, getProductDetails, getProductList, saveProduct, deleteProduct, setProduct, }
+    const products = { getProductPagination, getProductDetails, getProductList, saveProduct, deleteProduct, setProduct, getProductTypeList}
     let onReturn = () => {
         props.history.replace(`${path}`);
     }

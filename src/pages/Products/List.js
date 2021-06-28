@@ -64,32 +64,23 @@ function ProductList(props) {
             }
         },
         {
-            selector: 'person.name',
+            selector: 'name',
             name: "Nombre"
         },
         {
-            selector: 'document_name',
-            name: "Usuario"
+            selector: 'reference',
+            name: "Referencia"
         },
        
         {
-            selector: 'person.phone',
-            name: "Teléfono"
+            selector: 'size',
+            name: "Tamaño"
         },
         {
-            selector: 'person.email',
-            name: "Correo",
+            selector: 'product_type.name',
+            name: "Tipo",
             default :"Sin correo"
         },
-        {
-            selector: 'entity.name',
-            name: "Entidad"
-        },
-        {
-            selector: 'document_type.description',
-            name: "Rol"
-        },
-       
     ]
 
 

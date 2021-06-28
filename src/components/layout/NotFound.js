@@ -1,3 +1,4 @@
+import { LOGO } from "configuration/manager"
 
 function NotFound() {
     return (
@@ -17,7 +18,7 @@ function NotFound() {
                                         <div className="columns is-justify-content-center">
                                             <div className="column is-half">
                                                 <figure className="image ">
-                                                    <img src={"https://pruebas-finalsa.s3.amazonaws.com/kasaluna/logo-white.png"}
+                                                    <img src={LOGO}
                                                         alt='logo' />
                                                 </figure>
                                             </div>

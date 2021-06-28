@@ -4,6 +4,8 @@ export const LIGTH_COLOR = "light"
 
 export const DARK_COLOR = ""
 
+export const LOGO = `${process.env.PUBLIC_URL}/logo.png`
+
 function getApiUrl() {
     let url = process.env.REACT_APP_API_URL;
     return (url) ? url : 'http://localhost:8000'

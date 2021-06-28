@@ -28,10 +28,10 @@ function DocumentForm(props) {
                 <div className="columns is-multiline">
                     <div className="column is-half">
                         <div className="field">
-                            <label className="label">Nombre</label>
+                            <label className="label">Número</label>
                             <div className="control">
                                 <input
-                                    {...register("name", { required: true })}
+                                    {...register("number", { required: true })}
                                     type="text"
                                     className="input"
                                 ></input>
@@ -40,7 +40,7 @@ function DocumentForm(props) {
                     </div>
                     <div className="column is-half">
                         <div className="field">
-                            <label className="label">Nombre de Usuario</label>
+                            <label className="label">Entidad</label>
                             <div className="control">
                                 <input
                                     {...register("userName", { required: true })}
@@ -53,7 +53,7 @@ function DocumentForm(props) {
                     <div className="column is-half">
                         <div className="field">
                             <label className="label">
-                                Teléfono
+                                Fecha de emisión
                             </label>
                             <div className="control">
                                 <input
@@ -67,7 +67,7 @@ function DocumentForm(props) {
                     <div className="column is-half">
                         <div className="field">
                             <label className="label">
-                                Correo Electrónico
+                            Fecha de revisión
                             </label>
                             <div className="control">
                                 <input
@@ -81,28 +81,19 @@ function DocumentForm(props) {
 
                     <div className="column is-half">
                         <div className="field">
-                            <label className="label">Contraseña</label>
+                            <label className="label">
+                            Fecha de revisión
+                            </label>
                             <div className="control">
                                 <input
-                                    {...register("password", { required: true })}
-                                    type="password"
+                                    {...register("email", { required: true })}
+                                    type="text"
                                     className="input"
                                 ></input>
                             </div>
                         </div>
                     </div>
-                    <div className="column is-half">
-                        <div className="field">
-                            <label className="label">Confirma Contraseña</label>
-                            <div className="control">
-                                <input
-                                    {...register("conpassword", { required: true })}
-                                    type="password"
-                                    className="input"
-                                ></input>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
                 <div className="field">
                     {

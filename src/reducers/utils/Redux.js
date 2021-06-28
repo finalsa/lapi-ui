@@ -7,6 +7,7 @@ import User from 'actions/User'
 import Entity from 'actions/Entity'
 import Document from 'actions/Document'
 import Product from 'actions/Product'
+import ProductType from 'actions/ProductType'
 
 
 import Defs from 'actions/helpers/Defs'
@@ -15,8 +16,13 @@ const user = new User();
 const entity = new Entity();
 const document = new Document();
 const product = new Product();
+const productType = new ProductType();
 
 const actions = [
+    {
+        className: ProductType,
+        object: productType
+    },
     {
         className: Product,
         object: product

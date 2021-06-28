@@ -1,3 +1,4 @@
+import { LOGO } from 'configuration/manager'
 import React, { } from 'react'
 
 class Module extends React.Component {
@@ -77,7 +78,7 @@ class Module extends React.Component {
                                                 <div className="columns is-justify-content-center">
                                                     <div className="column is-3">
                                                         <figure className="image ">
-                                                            <img src={"https://pruebas-finalsa.s3.amazonaws.com/kasaluna/logo-white.png"}
+                                                            <img src={LOGO}
                                                                 alt='logo' />
                                                         </figure>
                                                     </div>
