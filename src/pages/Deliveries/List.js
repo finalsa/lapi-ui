@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useState } from "react"
 import { LoadingBar, Pagination, Notification } from 'components/layout'
 
 
-function ProductList(props) {
+function DeliveryList(props) {
 
     const [data, setData] = useState(null)
-    const { getProductPagination, deleteProduct, path } = props
+    const { getDeliveryPagination, deleteDelivery, path } = props
 
-    let loadData = useCallback((actualPage = 0, search = '') => {
+    let loadData = useCallback((actualPage = 0) => {
         let callback = (res) => {
             if (res.ok) {
                 setData(res.body)
@@ -15,8 +15,8 @@ function ProductList(props) {
 
             }
         }
-        getProductPagination({ page: actualPage, search : search }, true, callback)
-    }, [getProductPagination])
+        getDeliveryPagination({ page: actualPage }, true, callback)
+    }, [getDeliveryPagination])
 
     let reload = () => {
         setData(null)
@@ -26,11 +26,6 @@ function ProductList(props) {
     useEffect(() => {
         loadData()
     }, [loadData])
-
-    let searchAction = (text) => {
-        setData(null)
-        loadData(0, text)
-    }
 
     if (!data) {
         return (
@@ -48,10 +43,9 @@ function ProductList(props) {
 
             }
         }
-        deleteProduct(row.id, callback)
+        deleteDelivery(row.id, callback)
     }
 
-   
     const cols = [
         
         {
@@ -95,7 +89,7 @@ function ProductList(props) {
             <div className="columns ml-0 pl-0 pt-0 mt-0 is-multiline ">
                 <div className="column  ml-0 pl-0 pt-0 mt-0 is-full">
                     <div className="title ">
-                        Productos
+                        Entregas
                     </div>
                 </div>
                 <div className="column is-full pl-0">
@@ -107,12 +101,11 @@ function ProductList(props) {
                         onSelectedRow={(row) => {
                             props.history.replace(`${path}/details/${row.id}`);
                         }}
-                        title="Productos"
+                        title="Entregas"
                         data={data.data}
                         onAdd={() => {
                             props.history.replace(`${path}/form`);
                         }}
-                        onSearch={searchAction}
                         onReload={reload}
                         totalPages={data.total_pages}
                         automatic={false}
@@ -125,4 +118,4 @@ function ProductList(props) {
     )
 }
 
-export default (ProductList)
+export default (DeliveryList)

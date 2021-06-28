@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { LoadingBar, ModalLayout } from 'components/layout'
 import { reduxProperties } from 'reducers/utils/Redux'
-import Details from 'components/Products/Details'
+import Form from 'components/Deliveries/Form'
 
-function ProductDetails(props) {
+function DeliveryForm(props) {
 
     const [data, setData] = useState(null)
+    const [formData, setFormData] = useState(null)
     const { id } = props.match.params
-    const { getProductDetails } = props
+    const { getDeliveryDetails, getEntityList } = props
 
     let loadData = useCallback(() => {
         let callback = (res) => {
@@ -17,8 +18,18 @@ function ProductDetails(props) {
 
             }
         }
-        getProductDetails(id, {}, callback)
-    }, [getProductDetails, id])
+        if (id) {
+            getDeliveryDetails(id, {}, callback)
+        }
+        let dataCallback = (res) => {
+            if (res.ok) {
+                setFormData({
+                    entities: res.body
+                })
+            }
+        }
+        getEntityList({ limit: 100, is_principal: 1 }, dataCallback)
+    }, [getEntityList, getDeliveryDetails, id])
 
     let reload = () => {
         setData(null)
@@ -29,26 +40,30 @@ function ProductDetails(props) {
         loadData()
     }, [loadData])
 
-
     return (
         <>
 
             <ModalLayout
-                title="Producto"
+                title="Nueva Entrega"
                 onReturn={props.onReturn}
                 onReload={reload}
             >
                 {
-                    (!data) ?
+                    (!formData) ?
                         (
                             <LoadingBar
                                 isSmall={true}
                                 reload={reload}
                             ></LoadingBar>
                         ) : (
-                            <Details
+                            <Form
                                 data={data}
-                            ></Details>
+                                getProductDetails={props.getProductDetails}
+                                getProductList={props.getProductList}
+                                entities={formData.entities}
+                                onReturn={props.onReturn}
+                                saveDelivery={props.saveDelivery}
+                            ></Form>
                         )
                 }
             </ModalLayout>
@@ -57,4 +72,4 @@ function ProductDetails(props) {
     )
 }
 
-export default reduxProperties(ProductDetails)
+export default reduxProperties(DeliveryForm)

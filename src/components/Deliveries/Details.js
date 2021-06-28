@@ -1,4 +1,4 @@
-function ProductDetails(props) {
+function DeliveryDetails(props) {
     const { data } = props
     return (
         <>
@@ -11,7 +11,7 @@ function ProductDetails(props) {
                         <div className="control">
                             <input type="text"
                                 className="input"
-                                value={data.name}
+                                value={data.person.name}
                             >
                             </input>
                         </div>
@@ -20,26 +20,12 @@ function ProductDetails(props) {
                 <div className="column is-half">
                     <div className="field">
                         <label className="label">
-                            Referencia
+                            Usuario
                         </label>
                         <div className="control">
                             <input type="text"
                                 className="input"
-                                value={data.reference}
-                            >
-                            </input>
-                        </div>
-                    </div>
-                </div>
-                <div className="column is-half">
-                    <div className="field">
-                    <label className="label">
-                            Tamaño
-                        </label>
-                        <div className="control">
-                            <input type="text"
-                                className="input"
-                                value={data.size}
+                                value={data.user_name}
                             >
                             </input>
                         </div>
@@ -48,12 +34,26 @@ function ProductDetails(props) {
                 <div className="column is-half">
                     <div className="field">
                         <label className="label">
-                            Tipo
+                            Usuario
                         </label>
                         <div className="control">
                             <input type="text"
                                 className="input"
-                                value={data.product_type.description}
+                                value={data.phone}
+                            >
+                            </input>
+                        </div>
+                    </div>
+                </div>
+                <div className="column is-half">
+                    <div className="field">
+                        <label className="label">
+                            Usuario
+                        </label>
+                        <div className="control">
+                            <input type="text"
+                                className="input"
+                                value={data.email}
                             >
                             </input>
                         </div>
@@ -63,4 +63,4 @@ function ProductDetails(props) {
         </>
     )
 }
-export default ProductDetails
+export default DeliveryDetails

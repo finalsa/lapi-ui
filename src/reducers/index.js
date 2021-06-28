@@ -8,9 +8,11 @@ import ItemReducer from 'reducers/ItemReducer'
 import TemplateReducer from 'reducers/TemplateReducer'
 import TemplateTypeReducer from 'reducers/TemplateTypeReducer'
 import DocumentTypeReducer from 'reducers/DocumentTypeReducer'
+import DeliveryReducer from 'reducers/DeliveryReducer'
 
 
 const reducers = {
+    deliveries: new DeliveryReducer().reducer,
     items: new ItemReducer().reducer,
     templates: new TemplateReducer().reducer,
     templateTypes: new TemplateTypeReducer().reducer,

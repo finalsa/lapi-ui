@@ -113,9 +113,7 @@ function DocumentList(props) {
                         }}
                         title="Documentos"
                         data={data.data}
-                        onAdd={() => {
-                            props.history.replace(`${path}/form`);
-                        }}
+                     
                         onReload={reload}
                         totalPages={data.total_pages}
                         automatic={false}

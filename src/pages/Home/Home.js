@@ -9,6 +9,7 @@ import Entities from 'pages/Entities'
 import { Route, Switch } from 'react-router'
 import Documents from 'pages/Documents'
 import Products from 'pages/Products'
+import Deliveries from 'pages/Deliveries'
 
 function Home(props) {
     console.log(props)
@@ -59,6 +60,11 @@ function Home(props) {
                         <Users
                             setActualPage={setSelectedPath}
                         ></Users>
+                    </Route>
+                    <Route path={`${path}/deliveries`}>
+                        <Deliveries
+                            setActualPage={setSelectedPath}
+                        ></Deliveries>
                     </Route>
                     <Route path={`${path}/products`}>
                         <Products

@@ -22,6 +22,11 @@ function Menu(props) {
                         </p>
                         <ul className="menu-list">
                             <li>
+                                <Link to='/home/deliveries' className={`is-size-6 ${(path === 'deliveries') ? 'is-active' : ''}`}>
+                                    Entregas
+                                </Link>
+                            </li>
+                            <li>
                                 <Link to='/home/products' className={`is-size-6 ${(path === 'products') ? 'is-active' : ''}`}>
                                     Productos
                                 </Link>

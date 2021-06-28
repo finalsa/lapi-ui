@@ -12,7 +12,7 @@ import DocumentType from 'actions/DocumentType'
 import Item from 'actions/Item'
 import Template from 'actions/Template'
 import TemplateType from 'actions/TemplateType'
-
+import Delivery from 'actions/Delivery'
 
 
 import Defs from 'actions/helpers/Defs'
@@ -26,8 +26,13 @@ const documentType = new DocumentType();
 const item = new Item();
 const template = new Template();
 const templateType = new TemplateType();
+const delivery = new Delivery();
 
 const actions = [
+    {
+        className: Delivery,
+        object: delivery
+    },
     {
         className: DocumentType,
         object: documentType

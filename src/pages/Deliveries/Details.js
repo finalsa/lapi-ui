@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { LoadingBar, ModalLayout } from 'components/layout'
 import { reduxProperties } from 'reducers/utils/Redux'
-import Details from 'components/Products/Details'
+import Details from 'components/Deliveries/Details'
 
-function ProductDetails(props) {
+function DeliveryDetails(props) {
 
     const [data, setData] = useState(null)
     const { id } = props.match.params
-    const { getProductDetails } = props
+    const { getDeliveryDetails } = props
 
     let loadData = useCallback(() => {
         let callback = (res) => {
@@ -17,8 +17,8 @@ function ProductDetails(props) {
 
             }
         }
-        getProductDetails(id, {}, callback)
-    }, [getProductDetails, id])
+        getDeliveryDetails(id, {}, callback)
+    }, [getDeliveryDetails, id])
 
     let reload = () => {
         setData(null)
@@ -34,7 +34,7 @@ function ProductDetails(props) {
         <>
 
             <ModalLayout
-                title="Producto"
+                title="Deliveryo"
                 onReturn={props.onReturn}
                 onReload={reload}
             >
@@ -57,4 +57,4 @@ function ProductDetails(props) {
     )
 }
 
-export default reduxProperties(ProductDetails)
+export default reduxProperties(DeliveryDetails)

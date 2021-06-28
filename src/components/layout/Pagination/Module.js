@@ -1,10 +1,10 @@
 import React from 'react'
 import PaginationFooter from './Footer'
 import { LoadingBar } from '..';
-import NoContent from './NoContent';
 import ModuleHeader from './ModuleHeader';
 import TableRow from './TableRow';
 import TableHeader from './TableHeader';
+import ModuleSearch from './ModuleSearch';
 
 class PaginationModule extends React.Component {
 
@@ -17,10 +17,12 @@ class PaginationModule extends React.Component {
             objectPerPage: 10,
             rowSelected: -1,
             selectedItems: [],
+            searchVisible: false
         }
         this.setDefaultProperties = this.setDefaultProperties.bind(this)
         this.handleChangePage = this.handleChangePage.bind(this)
         this.isSelected = this.isSelected.bind(this)
+        this.setSearch = this.setSearch.bind(this)
         this.handleSelectedRow = this.handleSelectedRow.bind(this)
         this.setDefaultProperties(props)
     }
@@ -29,10 +31,8 @@ class PaginationModule extends React.Component {
         horizontal = false,
         automatic = false,
         title = '',
-        onSave = false,
-        onSearch = false,
-        onReload = false,
         className = 'box',
+        onSearch = false,
         withoutFooter = false,
         multipleSelection = false,
         noContentMessage = ":( No hay datos suficientes para mostrar.",
@@ -43,10 +43,8 @@ class PaginationModule extends React.Component {
         this.horizontal = horizontal
         this.automatic = automatic
         this.title = title
-        this.canAdd = onSave
+        this.onSearch = (onSearch) ? this.setSearch : null
         this.className = className
-        this.canSearch = onSearch
-        this.canReload = onReload
         this.withoutFooter = withoutFooter
         this.noContentMessage = noContentMessage
         this.multipleSelection = multipleSelection
@@ -80,6 +78,12 @@ class PaginationModule extends React.Component {
                 this.setState({ selectedItems: items }, callback)
             }
         }
+    }
+
+    setSearch() {
+        this.setState({
+            searchVisible: !this.state.searchVisible
+        })
     }
 
     handleChangePage(pageNumber) {
@@ -120,18 +124,7 @@ class PaginationModule extends React.Component {
         }
 
         if (!data || data.length === 0) {
-            return (
-                <NoContent
-                    title={this.title}
-                    className={this.className}
-                    message={this.noContentMessage}
-                    onSearch={this.noContentMessage}
-                    onAdd={this.props.onAdd}
-                    onReload={this.props.onReload}
-                    options={this.props.options}
-                >
-                </NoContent>
-            )
+            data = []
         }
         let headers = []
         let headersMapper = (col, i) => {
@@ -164,25 +157,45 @@ class PaginationModule extends React.Component {
                 <div className={`p-0 mx-0 my-0 mt-2 table-container ${(false) ? " " : ''}`}>
                     <ModuleHeader
                         title={this.props.title}
-                        onSearch={this.props.onSearch}
+                        onSearch={this.onSearch}
                         onAdd={this.props.onAdd}
                         onReload={this.props.onReload}
                         options={this.props.options}
                     ></ModuleHeader>
-                    <table className="table is-fullwidth  is-striped is-narrow  is-hoverable   ">
-                        <thead className="py-6 my-6">
-                            <tr >
-                                {
-                                    headers
-                                }
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                rows
-                            }
-                        </tbody>
-                    </table>
+                    <ModuleSearch
+                        isVisible={this.state.searchVisible}
+                        onSearch={this.props.onSearch}
+                    ></ModuleSearch>
+                    {
+                        (rows.length > 0) ?
+                            (
+                                <table className="table is-fullwidth  is-striped is-narrow  is-hoverable">
+                                    <thead className="py-6 my-6">
+                                        <tr >
+                                            {
+                                                headers
+                                            }
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            rows
+                                        }
+                                    </tbody>
+                                </table>
+                            )
+                            :
+                            (
+                                <div className="container mt-4 py-5">
+                                    <div className="subtitle has-text-centered">
+                                        {
+                                            this.noContentMessage
+                                        }
+                                    </div>
+                                </div>
+                            )
+                    }
+
                 </div>
                 <div className={`p-0 mx-0 my-0 mt-4`}>
                     <PaginationFooter
