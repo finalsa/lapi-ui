@@ -36,7 +36,7 @@ class SelectLayout extends React.Component {
     }
 
     wrapData() {
-        let { options, value, label } = this.props
+        let { options, value = "value", label = "label" } = this.props
         let itemOptions = []
         let mapper = (item) => {
             let valueItem = this.getItemData(item, value)
@@ -61,6 +61,13 @@ class SelectLayout extends React.Component {
 
     loadData(itemOptions = this.wrapData()) {
         let { placeholder } = this.props
+        if(this.props.onSearch){
+            this.setState({
+                data: itemOptions,
+                location: 0
+            })
+            return
+        }
         if (this.props.selected) {
             let location = this.handleSelectedChange(itemOptions)
             if (location) {
@@ -110,12 +117,13 @@ class SelectLayout extends React.Component {
     }
 
     handleTextChange(e) {
-        /*
-        let value = e.target.value
-        
-        this.setState({
-            value: value
-        })    */
+        if(this.props.onSearch){
+            let value = e.target.value
+            this.props.onSearch(value)
+            this.setState({
+                value: value
+            })
+        }
     }
 
     handleSelectOption(location) {

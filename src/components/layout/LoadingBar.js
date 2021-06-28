@@ -12,7 +12,7 @@ class Module extends React.Component {
         }
         this.loadError = this.loadError.bind(this)
         this.reload = this.reload.bind(this)
-
+        this.className = this.props.className ? this.props.className : "barloader"
     }
 
     interval = null
@@ -69,7 +69,7 @@ class Module extends React.Component {
             let content = (
                 this.state.isReload ? (
                     <>
-                        <div className={`barloader  is-vcentered ${this.props.className}`}>
+                        <div className={`is-vcentered ${this.className}`}>
                             <div className="container">
                                 <div className="columns is-centered">
                                     <div className="column is-centered box  px-6 is-full">
@@ -111,7 +111,7 @@ class Module extends React.Component {
                     </>
                 ) :
                     (
-                        <div className="barloader  is-vcentered">
+                        <div className={`${this.className}  is-vcentered`}>
                             <div className="container">
                                 <progress className="progress is-small is-link" max="100">%</progress>
                             </div>

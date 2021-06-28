@@ -14,10 +14,12 @@ function ModuleSearch(
             </>
         )
     }
+    let reset = () => {
+        setText('')
+        onSearch('')
+    }
     let search = () => {
-
         onSearch(text)
-
     }
     let onChange = (e) => {
         let val = e.target.value
@@ -28,11 +30,18 @@ function ModuleSearch(
         <>
             <div className="level py-3 px-1 m-0 table-header">
                 <div className="level-left">
-
                 </div>
                 <div className="level-right">
                     <div className="field has-addons">
                         <div className="control">
+                            <button className="button is-ghost" type="button" onClick={reset}>
+                                <span className="icon">
+                                    <i className="far fa-times-circle"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div className="control">
+
                             <input className="input" type="text" placeholder="Busqueda" value={text} onChange={onChange} />
                         </div>
                         <div className="control">

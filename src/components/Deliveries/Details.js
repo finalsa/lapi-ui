@@ -1,17 +1,22 @@
+import moment from "moment"
+import {Pagination} from 'components/layout'
+import { useState } from "react"
 function DeliveryDetails(props) {
+    const[items,  setItems] = useState(null)
     const { data } = props
+
     return (
         <>
             <div className="columns is-multiline">
                 <div className="column is-half">
                     <div className="field">
                         <label className="label">
-                            Nombre
+                            Folio
                         </label>
                         <div className="control">
                             <input type="text"
                                 className="input"
-                                value={data.person.name}
+                                value={data.number}
                             >
                             </input>
                         </div>
@@ -20,12 +25,12 @@ function DeliveryDetails(props) {
                 <div className="column is-half">
                     <div className="field">
                         <label className="label">
-                            Usuario
+                            Version
                         </label>
                         <div className="control">
                             <input type="text"
                                 className="input"
-                                value={data.user_name}
+                                value={data.version}
                             >
                             </input>
                         </div>
@@ -34,12 +39,12 @@ function DeliveryDetails(props) {
                 <div className="column is-half">
                     <div className="field">
                         <label className="label">
-                            Usuario
+                            Entidad
                         </label>
                         <div className="control">
                             <input type="text"
                                 className="input"
-                                value={data.phone}
+                                value={data.entity.name}
                             >
                             </input>
                         </div>
@@ -48,16 +53,53 @@ function DeliveryDetails(props) {
                 <div className="column is-half">
                     <div className="field">
                         <label className="label">
-                            Usuario
+                            Emisión
                         </label>
                         <div className="control">
                             <input type="text"
                                 className="input"
-                                value={data.email}
+                                value={moment(data.created_date).format('DD/MM/YYYY')}
                             >
                             </input>
                         </div>
                     </div>
+                </div>
+                <div className="column is-half">
+                    <div className="field">
+                        <label className="label">
+                            Revisión
+                        </label>
+                        <div className="control">
+                            <input type="text"
+                                className="input"
+                                value={moment(data.revision_date).format('DD/MM/YYYY')}
+                            >
+                            </input>
+                        </div>
+                    </div>
+                </div>
+                <div className="column is-half">
+                    <div className="field">
+                        <label className="label">
+                            Entrega
+                        </label>
+                        <div className="control">
+                            <input type="text"
+                                className="input"
+                                value={moment(data.delivery_date).format('DD/MM/YYYY')}
+                            >
+                            </input>
+                        </div>
+                    </div>
+                </div>
+                <div className="column is-full">
+                    <Pagination
+                        className="p-0 m-0"
+                        title="Productos"
+                        isLoading={(!items)}
+                        cols={[]}
+                        data={items}
+                    ></Pagination>
                 </div>
             </div>
         </>

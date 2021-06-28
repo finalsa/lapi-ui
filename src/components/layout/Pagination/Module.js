@@ -14,7 +14,7 @@ class PaginationModule extends React.Component {
             data: props.data,
             actualPage: 1,
             selected: null,
-            objectPerPage: 10,
+            objectPerPage: 100,
             rowSelected: -1,
             selectedItems: [],
             searchVisible: false
@@ -103,20 +103,13 @@ class PaginationModule extends React.Component {
     }
 
     render() {
-        let { cols } = this.props
+        let { cols, isLoading } = this.props
         let data = []
         let totalPages = 0
-        if (this.props.isLoading) {
-            return (
-                <LoadingBar
-                    isFull={false}
-                ></LoadingBar>
-            )
-        }
         if (this.automatic) {
             let start = (this.state.actualPage - 1) * this.state.objectPerPage
             let end = start + this.state.objectPerPage
-            data = this.props.data.slice(start, end)
+            data = (this.props.data) ? this.props.data.slice(start, end) : []
             totalPages = Math.ceil(this.props.data.length / 10)
         } else {
             data = this.props.data
@@ -126,6 +119,7 @@ class PaginationModule extends React.Component {
         if (!data || data.length === 0) {
             data = []
         }
+
         let headers = []
         let headersMapper = (col, i) => {
             headers.push(
@@ -167,32 +161,44 @@ class PaginationModule extends React.Component {
                         onSearch={this.props.onSearch}
                     ></ModuleSearch>
                     {
-                        (rows.length > 0) ?
+                        (isLoading) ? (
+                            <div className="table">
+                                <LoadingBar
+                                    className="container pt-3"
+                                    isSmall={true}
+                                    reload={this.onReload}
+                                ></LoadingBar>
+                            </div>
+
+                        ) :
                             (
-                                <table className="table is-fullwidth  is-striped is-narrow  is-hoverable">
-                                    <thead className="py-6 my-6">
-                                        <tr >
-                                            {
-                                                headers
-                                            }
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            rows
-                                        }
-                                    </tbody>
-                                </table>
-                            )
-                            :
-                            (
-                                <div className="container mt-4 py-5">
-                                    <div className="subtitle has-text-centered">
-                                        {
-                                            this.noContentMessage
-                                        }
-                                    </div>
-                                </div>
+                                (rows.length > 0) ?
+                                    (
+                                        <table className="table is-fullwidth  is-striped is-narrow  is-hoverable">
+                                            <thead className="py-6 my-6">
+                                                <tr >
+                                                    {
+                                                        headers
+                                                    }
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    rows
+                                                }
+                                            </tbody>
+                                        </table>
+                                    )
+                                    :
+                                    (
+                                        <div className="container mt-4 py-5">
+                                            <div className="subtitle has-text-centered">
+                                                {
+                                                    this.noContentMessage
+                                                }
+                                            </div>
+                                        </div>
+                                    )
                             )
                     }
 

@@ -6,7 +6,7 @@ class Counter extends React.Component {
         super(props);
         this.min = this.props.min ? this.props.min : 0
         this.max = this.props.max ? this.props.max : 10000000
-        let count = this.props.count ? this.props.count : 0
+        let count = this.props.count ? this.props.count : this.min
         this.state = { count: count, };
         this.handleLess = this.handleLess.bind(this);
         this.handlePlus = this.handlePlus.bind(this);

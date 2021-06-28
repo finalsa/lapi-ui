@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { LoadingBar, Pagination, Notification } from 'components/layout'
+import moment from "moment"
 
 
 function DeliveryList(props) {
@@ -47,7 +48,7 @@ function DeliveryList(props) {
     }
 
     const cols = [
-        
+
         {
             name: "",
             id: "dasdas",
@@ -64,22 +65,53 @@ function DeliveryList(props) {
             }
         },
         {
-            selector: 'name',
-            name: "Nombre"
+            selector: 'number',
+            name: "Folio"
         },
         {
-            selector: 'reference',
-            name: "Referencia"
+            selector: 'version',
+            name: "Version"
         },
-       
+
         {
-            selector: 'size',
-            name: "Tamaño"
+            selector: 'entity.name',
+            name: "Entidad"
         },
         {
-            selector: 'product_type.description',
-            name: "Tipo",
-            default :"Sin correo"
+            cell: (row) => {
+                return (
+                    <div className="mr-3">
+                        {
+                            moment(row.created_date).format('DD/MM/YYYY')
+                        }
+                    </div>
+                )
+            },
+            name: "Emisión"
+        },
+        {
+            cell: (row) => {
+                return (
+                    <div className="mr-3">
+                        {
+                            moment(row.revision_date).format('DD/MM/YYYY')
+                        }
+                    </div>
+                )
+            },
+            name: "Revisión"
+        },
+        {
+            cell: (row) => {
+                return (
+                    <div className="mr-3">
+                        {
+                            moment(row.delivery_date).format('DD/MM/YYYY')
+                        }
+                    </div>
+                )
+            },
+            name: "Entrega"
         },
     ]
 

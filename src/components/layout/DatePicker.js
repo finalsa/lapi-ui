@@ -16,6 +16,13 @@ function DatePickerLayout(
             setSelectedDate(date)
         }
     }
+    if (!selected) {
+        return (
+            <div className="" onClick={() => { onSetSelect(new Date()) }}>
+                Sin seleccion
+            </div>
+        )
+    }
     return (
         <DatePicker
             locale="es"

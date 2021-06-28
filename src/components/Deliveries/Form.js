@@ -1,16 +1,140 @@
 import { useForm, Controller } from 'react-hook-form';
-import { SelectLayout, Pagination, DatePicker } from 'components/layout'
+import { SelectLayout, Pagination, DatePicker, Counter } from 'components/layout'
+import { useCallback, useEffect, useState } from 'react';
+import ProductDetails from 'components/Products/Details';
+
+function ItemModal({
+    onClose,
+    onAdd,
+    getProductList
+}) {
+    const [selectedItem, setSelectedItem] = useState(null)
+    const [data, setData] = useState([])
+
+    let loadData = useCallback((search = '') => {
+        let callback = (res) => {
+            if (res.ok) {
+                setData(res.body)
+                setSelectedItem(res.body[0])
+            }
+        }
+        getProductList({ limit: 20, search: search }, callback)
+    }, [getProductList])
+
+    useEffect(() => {
+        loadData()
+    }, [loadData])
+
+    let add = () => {
+        if (onAdd)
+            onAdd(selectedItem)
+        onClose()
+    }
+
+    let onSelect = (val, pos) => {
+        setSelectedItem(
+            data[pos]
+        )
+    }
+
+    let search = (text) => {
+        loadData(text)
+    }
+
+    let dataHelper = []
+    let mapper = (item) => {
+        dataHelper.push({
+            label: `${item.reference}-${item.name}-${item.size}-${item.product_type.description}`,
+            value: item.id
+        })
+    }
+    data.map(mapper)
+    return (
+        <>
+            <div className="modal is-active">
+                <div className="modal-background"></div>
+                <div className="modal-card">
+                    <header className="modal-card-head">
+                        <p className="modal-card-title">Agregar producto</p>
+                        <button className="delete" aria-label="close" type="button" onClick={onClose}></button>
+                    </header>
+                    <section className="modal-card-body">
+                        <div className="columns is-multiline">
+                            <div className="column is-full">
+                                <div className="field">
+                                    <label className="label">
+                                        Busqueda
+                                    </label>
+                                    <div className="control">
+                                        <SelectLayout
+                                            placeholder="a"
+                                            onSearch={search}
+                                            options={dataHelper}
+                                            onSelect={onSelect}
+                                        ></SelectLayout>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {
+                            (selectedItem) ? (
+                                <>
+                                    <ProductDetails
+                                        data={selectedItem}
+                                    ></ProductDetails>
+                                </>
+                            ) : null
+                        }
+
+                    </section>
+                    <footer className="modal-card-foot">
+                        <button className="button is-link" type="button" onClick={add}>Agregar</button>
+                        <button className="button is-danger" type="button" onClick={onClose}>Cancel</button>
+                    </footer>
+                </div>
+            </div>
+        </>
+    )
+}
 
 function DeliveryItems(props) {
-    let deleteAction = () => { }
+    const [modal, setModal] = useState(false)
+    const [items, setItems] = useState([])
+    let deleteAction = (index) => {
+        let helperItems = items
+        helperItems.splice(index, 1)
+        setItems(helperItems)
+    }
+    let onAddItem = (item) => {
+        let itemsHelper = items
+        item["quantity"] = 0
+        item["package_number"] = ''
+        item["lote"] = ''
+        item["expiration_date"] = null
+        itemsHelper.push(item)
+        if (props.onChange) {
+            props.onChange(itemsHelper)
+        }
+        setItems([...itemsHelper])
+    }
+
+    let onModify = (index, key, val) => {
+        let itemsHelper = items
+        let item = itemsHelper[index]
+        item[key] = val
+        if (props.onChange) {
+            props.onChange(itemsHelper)
+        }
+        setItems([...itemsHelper])
+    }
     const cols = [
         {
             name: "",
             id: "dasdas",
-            cell: (row) => {
+            cell: (row, index) => {
                 return (
                     <button className="button is-small is-danger is-ghost"
-                        onClick={() => deleteAction(row)}>
+                        onClick={() => deleteAction(index)}>
                         <span className="icon is-small">
                             <i className="fas fa-times"></i>
                         </span>
@@ -38,16 +162,88 @@ function DeliveryItems(props) {
             default: "Sin correo"
         },
         {
+            cell: (row, index) => {
+                return (
+                    <div className="field  mr-3 py-0" style={{ width: "110px" }}>
+                        <DatePicker
+                            selectedDate={null}
+                            setSelectedDate={(date) => {
+                                onModify(index, "expiration_date", date)
+                            }}
+                        ></DatePicker>
+                    </div>
+                )
+            },
             name: "Caducidad",
+        },
+        {
+            cell: (row, index) => {
+                return (
+                    <div className="field  mr-3 py-0" style={{ width: "100px" }}>
+                        <div className="control py-0">
+                            <input className="input py-0 " onChange={(e) => {
+                                onModify(index, "lote", e.target.value)
+                            }}></input>
+                        </div>
+                    </div>
+                )
+            },
+            name: "Lote",
+        },
+        {
+            cell: (row, index) => {
+                return (
+                    <div className="field  mr-3 py-0" style={{ width: "auto" }}>
+                        <Counter
+                            onChange={
+                                (val) => {
+                                    onModify(index, "quantity", val)
+                                }
+                            }
+                            min={1}
+                        ></Counter>
+                    </div>
+                )
+            },
+            name: "Canitidad",
+        },
+        {
+            cell: (row, index) => {
+                return (
+                    <div className="field   py-0" style={{ width: "100px" }}>
+                        <div className="control py-0">
+                            <input className="input py-0 " onChange={(e) => {
+                                onModify(index, "package_number", e.target.value)
+                            }}></input>
+                        </div>
+                    </div>
+                )
+            },
+            name: "Paquete",
+        },
 
-        }
     ]
+
     return (
         <>
+            {
+                (modal) ? (
+                    <ItemModal
+                        onAdd={onAddItem}
+                        onClose={() => { setModal(false) }}
+                        items={items}
+                        getProductDetails={props.getProductDetails}
+                        getProductList={props.getProductList}
+                    ></ItemModal>
+                ) :
+                    null
+            }
             <Pagination
                 title="Productos"
                 className=""
-                onAdd={() => { }}
+                data={items}
+                automatic={true}
+                onAdd={() => { setModal(true) }}
                 cols={cols}
             ></Pagination>
         </>
@@ -56,7 +252,13 @@ function DeliveryItems(props) {
 
 
 function DeliveryForm(props) {
-    const { handleSubmit, register, errors, control } = useForm();
+    const { handleSubmit, register, errors, control } = useForm(
+        {
+            defaultValues: {
+                items: []
+            }
+        }
+    );
     let onSubmit = (event) => {
         console.log(event)
         let callback = (res) => {
@@ -64,21 +266,31 @@ function DeliveryForm(props) {
                 props.onReturn()
             }
         }
+        let items = []
+        let mapper = (item) => {
+            items.push(
+                {
+                    product: item.id,
+                    quantity: item["quantity"],
+                    package_number: item["package_number"],
+                    lote: item["lote"],
+                    expiration_date: item["expiration_date"]
+                }
+            )
+        }
+        event.items.map(mapper)
         let data = {
-            name: event.name,
-            user_name: event.userName,
-            phone: event.phone,
-            email: event.email,
-            user_type: 1,
-            password: event.password,
+            number: event.number,
+            entity: event.entity,
+            created_date: event.created_date,
+            revision_date: event.revision_date,
+            delivery_date: event.delivery_date,
+            items: items,
         }
         console.log(data)
         props.saveDelivery(data, callback)
     }
     console.log(errors)
-
-
-
 
     return (
         <>
@@ -102,7 +314,7 @@ function DeliveryForm(props) {
                             <div className="control">
                                 <Controller
                                     control={control}
-                                    name="product_type"
+                                    name="entity"
                                     render={({ field: { onChange, onBlur, ref } }) => (
                                         <SelectLayout
                                             onSelect={(val) => onChange(val)}
@@ -126,7 +338,7 @@ function DeliveryForm(props) {
                             <div className="control">
                                 <Controller
                                     control={control}
-                                    name="product_type"
+                                    name="created_date"
                                     render={({ field: { onChange, onBlur, ref } }) => (
                                         <DatePicker
                                             ref={ref}
@@ -146,7 +358,7 @@ function DeliveryForm(props) {
                             <div className="control">
                                 <Controller
                                     control={control}
-                                    name="product_type"
+                                    name="revision_date"
                                     render={({ field: { onChange, onBlur, ref } }) => (
                                         <DatePicker
                                             ref={ref}
@@ -166,7 +378,7 @@ function DeliveryForm(props) {
                             <div className="control">
                                 <Controller
                                     control={control}
-                                    name="product_type"
+                                    name="delivery_date"
                                     render={({ field: { onChange, onBlur, ref } }) => (
                                         <DatePicker
                                             ref={ref}
@@ -178,10 +390,10 @@ function DeliveryForm(props) {
                             </div>
                         </div>
                     </div>
-                    <div className="column is-full">
+                    <div className="column is-full p-0 m-0">
                         <Controller
                             control={control}
-                            name="product_type"
+                            name="items"
                             render={({ field: { onChange, onBlur, ref } }) => (
                                 <DeliveryItems
                                     onChange={onChange}

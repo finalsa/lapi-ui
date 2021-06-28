@@ -34,7 +34,7 @@ function DeliveryDetails(props) {
         <>
 
             <ModalLayout
-                title="Deliveryo"
+                title="Entrega"
                 onReturn={props.onReturn}
                 onReload={reload}
             >
@@ -47,6 +47,10 @@ function DeliveryDetails(props) {
                             ></LoadingBar>
                         ) : (
                             <Details
+                                getTemplateList={props.getTemplateList}
+                                getTemplateDetails={props.getTemplateDetails}
+                                getItemDetails={props.getItemDetails}
+                                getItemPagination={props.getItemPagination}
                                 data={data}
                             ></Details>
                         )

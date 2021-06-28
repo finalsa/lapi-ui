@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { LoadingBar, Pagination, Notification } from 'components/layout'
+import { Pagination, Notification } from 'components/layout'
 
 
 function EntityList(props) {
 
-    const [data, setData] = useState(null)
+    const [data, setData] = useState({})
     const { getEntityPagination, deleteEntity, path } = props
 
-    let loadData = useCallback((actualPage = 0) => {
+    let loadData = useCallback((actualPage = 0, search = "") => {
         let callback = (res) => {
             if (res.ok) {
                 setData(res.body)
@@ -15,29 +15,23 @@ function EntityList(props) {
 
             }
         }
-        getEntityPagination({ page: actualPage }, true, callback)
+        getEntityPagination({ page: actualPage, search : search }, true, callback)
     }, [getEntityPagination])
 
     let reload = () => {
-        setData(null)
+        setData({})
         loadData()
     }
 
     let onSearch = (text) => {
-        console.log(text)
+        setData({})
+        loadData(0, text)
     }
 
     useEffect(() => {
         loadData()
     }, [loadData])
 
-    if (!data) {
-        return (
-            <LoadingBar
-                reload={reload}
-            ></LoadingBar>
-        )
-    }
     let deleteAction = (row) => {
         let callback = (res) => {
             if (res.ok) {
@@ -98,6 +92,7 @@ function EntityList(props) {
                         onAdd={() => {
                             props.history.replace(`${path}/form`);
                         }}
+                        isLoading={(!data.data)}
                         onSearch={onSearch}
                         onReload={reload}
                         totalPages={data.total_pages}

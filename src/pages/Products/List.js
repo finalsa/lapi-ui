@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { LoadingBar, Pagination, Notification } from 'components/layout'
+import { Pagination, Notification } from 'components/layout'
 
 
 function ProductList(props) {
 
-    const [data, setData] = useState(null)
+    const [data, setData] = useState({})
     const { getProductPagination, deleteProduct, path } = props
 
     let loadData = useCallback((actualPage = 0, search = '') => {
@@ -19,7 +19,7 @@ function ProductList(props) {
     }, [getProductPagination])
 
     let reload = () => {
-        setData(null)
+        setData({})
         loadData()
     }
 
@@ -28,17 +28,11 @@ function ProductList(props) {
     }, [loadData])
 
     let searchAction = (text) => {
-        setData(null)
+        setData({})
         loadData(0, text)
     }
 
-    if (!data) {
-        return (
-            <LoadingBar
-                reload={reload}
-            ></LoadingBar>
-        )
-    }
+    
     let deleteAction = (row) => {
         let callback = (res) => {
             if (res.ok) {
@@ -109,6 +103,7 @@ function ProductList(props) {
                         }}
                         title="Productos"
                         data={data.data}
+                        isLoading={(!data.data)}
                         onAdd={() => {
                             props.history.replace(`${path}/form`);
                         }}
