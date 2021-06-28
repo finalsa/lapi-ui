@@ -1,9 +1,23 @@
 import moment from "moment"
-import {Pagination} from 'components/layout'
-import { useState } from "react"
+import { Pagination } from 'components/layout'
+import { useCallback, useEffect, useState } from "react"
 function DeliveryDetails(props) {
-    const[items,  setItems] = useState(null)
-    const { data } = props
+
+    const [items, setItems] = useState(null)
+    const { getItemList, data } = props
+
+    let loadData = useCallback(() => {
+        let callback = (res) => {
+            if (res.ok) {
+                setItems(res.body)
+            }
+        }
+        getItemList({ delivery: data.id }, callback)
+    }, [getItemList, data])
+
+    useEffect(() => {
+        loadData()
+    }, [loadData])
 
     return (
         <>
@@ -96,8 +110,52 @@ function DeliveryDetails(props) {
                     <Pagination
                         className="p-0 m-0"
                         title="Productos"
+                        onReload={loadData}
                         isLoading={(!items)}
-                        cols={[]}
+                        cols={[
+                            {
+                                selector: 'package_number',
+                                name: "Paquete",
+                                default: "-"
+                            },
+                            {
+                                "name" : "Nombre",
+                                "selector" : "product_name"
+                            },
+                            {
+                                selector: 'size',
+                                name: "Tamaño"
+                            },
+                            {
+                                selector: 'reference',
+                                name: "Referencia"
+                            },
+                            {
+                                selector: 'product_type',
+                                name: "Tipo",
+                                default: "Sin correo"
+                            },
+                            {
+                                cell: (row) => (
+                                    <div className="mr-4 ml-1">
+                                        
+                                        {(row.expiration_date) ? moment(row.expiration_date).format('DD/MM/YYYY') : 'NA'}
+                                    </div>) ,
+                                name: "Caducidad",
+                                default: "NA"
+                            },
+                            {
+                                selector: 'lote',
+                                name: "Lote",
+                                default: "NA"
+                            },
+                           
+                            {
+                                selector: 'quantity',
+                                name: "Cantidad",
+                                default: "0"
+                            },
+                        ]}
                         data={items}
                     ></Pagination>
                 </div>

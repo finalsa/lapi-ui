@@ -2,12 +2,13 @@ import React, { useCallback, useEffect, useState } from "react"
 import { LoadingBar, ModalLayout } from 'components/layout'
 import { reduxProperties } from 'reducers/utils/Redux'
 import Details from 'components/Deliveries/Details'
+import PrintableOptions from "components/Deliveries/PrintableOptions"
 
 function DeliveryDetails(props) {
 
     const [data, setData] = useState(null)
     const { id } = props.match.params
-    const { getDeliveryDetails } = props
+    const { getDeliveryDetails, } = props
 
     let loadData = useCallback(() => {
         let callback = (res) => {
@@ -37,6 +38,18 @@ function DeliveryDetails(props) {
                 title="Entrega"
                 onReturn={props.onReturn}
                 onReload={reload}
+                options={
+                    <PrintableOptions
+                        getTemplateTypeList={props.getTemplateTypeList}
+                        getTemplateList={props.getTemplateList}
+                        getTemplateDetails={props.getTemplateDetails}
+                        getItemDetails={props.getItemDetails}
+                        getItemPagination={props.getItemPagination}
+                        getItemList={props.getItemList}
+                        getEntityDetails={props.getEntityDetails}
+                        data={data}
+                    ></PrintableOptions>
+                }
             >
                 {
                     (!data) ?
@@ -47,6 +60,7 @@ function DeliveryDetails(props) {
                             ></LoadingBar>
                         ) : (
                             <Details
+                                getItemList={props.getItemList}
                                 getTemplateList={props.getTemplateList}
                                 getTemplateDetails={props.getTemplateDetails}
                                 getItemDetails={props.getItemDetails}

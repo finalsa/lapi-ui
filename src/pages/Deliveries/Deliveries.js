@@ -27,10 +27,13 @@ function DeliverysPage(props) {
                     exact
                 >
                     <Details
+                        getTemplateTypeList={props.getTemplateTypeList}
                         getTemplateList={props.getTemplateList}
                         getTemplateDetails={props.getTemplateDetails}
                         getItemDetails={props.getItemDetails}
                         getItemPagination={props.getItemPagination}
+                        getItemList={props.getItemList}
+                        getEntityDetails={props.getEntityDetails}
                         onReturn={onReturn}
                         {...deliveries}
                     ></Details>

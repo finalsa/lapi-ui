@@ -31,7 +31,7 @@ class PaginationModule extends React.Component {
         horizontal = false,
         automatic = false,
         title = '',
-        className = 'box',
+        className = 'box px-5',
         onSearch = false,
         withoutFooter = false,
         multipleSelection = false,
@@ -147,7 +147,7 @@ class PaginationModule extends React.Component {
         data.map(dataMapper)
 
         return (
-            <div className={`${this.className} pt-1 px-5`}>
+            <div className={`${this.className} pt-1 `}>
                 <div className={`p-0 mx-0 my-0 mt-2 table-container ${(false) ? " " : ''}`}>
                     <ModuleHeader
                         title={this.props.title}
@@ -164,7 +164,7 @@ class PaginationModule extends React.Component {
                         (isLoading) ? (
                             <div className="table">
                                 <LoadingBar
-                                    className="container pt-3"
+                                    className="container mt-3"
                                     isSmall={true}
                                     reload={this.onReload}
                                 ></LoadingBar>

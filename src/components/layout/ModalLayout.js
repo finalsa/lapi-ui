@@ -33,16 +33,19 @@ function ModalLayout({
                                         ) :
                                             (null)
                                     }
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card-header px-0">
+                            <div className="level card-header-title  px-0 py-0">
+                                <div className="level-left">
+                                    <BackButton onReturn={onReturn}></BackButton>
+                                </div>
+                                <div className="level-right">
                                     {
                                         options
                                     }
                                 </div>
-
-                            </div>
-                        </div>
-                        <div className="card-header px-0">
-                            <div className="card-header-title px-0 py-0">
-                                <BackButton onReturn={onReturn}></BackButton>
                             </div>
                         </div>
                         <div className="card-content px-0">
